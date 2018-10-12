@@ -1,10 +1,23 @@
+// When debugging Wifi seems to have issues connecting, so disable it
+#if defined(USE_SWD_JTAG)
+#include "application.h"
+SYSTEM_MODE(MANUAL);
+#endif
+
+// #define USE_HTU 1
+// #define USE_SOIL 1
+
+#ifdef USE_HTU
 #include <SparkFunHTU21D.h>
+#endif
+
 #define ARDUINOJSON_ENABLE_ARDUINO_STRING 1
 #include <ArduinoJson.h>
 
+// #define TESTING 1
+
 #include "rgb_signal.h"
 #include "sample_reporter.h"
-#include "sample_manager.h"
 #include "temperature_reporter.h"
 #include "humidity_reporter.h"
 
@@ -12,14 +25,20 @@
 
 byte homeAssistantIp[] = {10, 0, 0, 31};
 int homeAssistantPort = 8123;
-String sensorLocation = String("Outside");
+String sensorLocation = String("Soil");
 
 RGBSignal rgbSignal;
-SampleManager sampleManager;
+
+#ifdef USE_HTU
 TemperatureReporter temperatureReporter;
 HumidityReporter humidityReporter;
-
 HTU21D htu;
+#endif
+
+#ifdef USE_SOIL
+#define SOIL_MIN 2200
+#define SOIL_MAX 1000
+#endif
 
 TCPClient client;
 
@@ -30,11 +49,15 @@ void setup() {
 
   rgbSignal.begin();
 
+#ifdef USE_HTU
   htu.begin();
   temperatureReporter.begin(htu);
-  sampleManager.addReporter(temperatureReporter);
   humidityReporter.begin(htu);
-  // sampleManager.addReporter(humidityReporter);
+#endif
+
+#ifdef USE_SOIL
+  pinMode(A0, INPUT);
+#endif
 }
 
 void reportSensor(char *name, float value, char *unit) {
@@ -125,6 +148,7 @@ void reportSensor(char *name, float value, char *unit) {
 }
 
 void loop() {
+#ifdef USE_HTU
   float h = humidityReporter.getSample();
   float t = temperatureReporter.getSample();
   if (isnan(h) || isnan(t)) {
@@ -134,6 +158,24 @@ void loop() {
     //delay(1000);
     reportSensor("Humidity", h, "%");
   }
+#endif
 
-  delay(5000);
+#ifdef USE_SOIL
+  float value;
+  value = analogRead(A0);
+  Particle.publish("raw_moisture", String(value), PRIVATE);
+
+  value = constrain(value, SOIL_MAX, SOIL_MIN);
+  value -= SOIL_MAX;
+  value = value * 1.0 / SOIL_MIN;
+  value = 100 * (1.0 - value);
+  reportSensor("Moisture", value, "%");
+#endif
+
+  Particle.process();
+  delay(10000);
+
+#ifndef TESTING
+  // System.sleep(SLEEP_MODE_DEEP, 10 * 60);
+#endif
 }
