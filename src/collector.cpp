@@ -21,6 +21,7 @@ void Collector::addReporter(IReporter *_reporter)
     if (this->reporterCount < MAX_REPORTERS)
     {
         this->reporters[this->reporterCount] = _reporter;
+        _reporter->setPrefix(this->prefix);
         this->reporterCount++;
     }
 }

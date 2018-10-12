@@ -7,7 +7,12 @@ void ReporterSerial::begin(unsigned long _baudrate)
 
 void ReporterSerial::report(Sample _sample)
 {
+    Serial.print(this->prefix);
     Serial.print(_sample.name);
     Serial.print("=");
     Serial.println(_sample.value);
 }
+void ReporterSerial::setPrefix(String _prefix)
+{
+    this->prefix = _prefix;
+};
