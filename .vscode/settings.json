@@ -1,0 +1,5 @@
+{
+    "C_Cpp.default.configurationProvider": "particle.particle-vscode-core",
+    "particle.targetDevice": "yellow-star",
+    "particle.firmwareVersion": "0.7.0"
+}
