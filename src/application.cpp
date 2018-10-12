@@ -12,6 +12,7 @@ SYSTEM_MODE(MANUAL);
 #define SENSOR_HTU21D
 
 #define REPORTER_SERIAL_BAUDRATE 9600
+#define REPORTER_PARTICLE
 
 #include "collector.h"
 Collector collector;
@@ -31,6 +32,11 @@ SensorHtu21D sensorHtu21D;
 ReporterSerial reporterSerial;
 #endif
 
+#if defined(REPORTER_PARTICLE)
+#include "reporters/reporter_particle.h"
+ReporterParticle reporterParticle;
+#endif
+
 void setup()
 {
     collector.begin(SAMPLE_PREFIX);
@@ -46,8 +52,12 @@ void setup()
 #endif
 
 #if defined(REPORTER_SERIAL_BAUDRATE)
-        reporterSerial.begin(REPORTER_SERIAL_BAUDRATE);
+    reporterSerial.begin(REPORTER_SERIAL_BAUDRATE);
     collector.addReporter(&reporterSerial);
+#endif
+
+#if defined(REPORTER_PARTICLE)
+    collector.addReporter(&reporterParticle);
 #endif
 }
 
