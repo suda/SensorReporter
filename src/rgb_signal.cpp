@@ -1,11 +1,10 @@
-#include "application.h"
 #include "rgb_signal.h"
+#include "application.h"
 
-void RGBSignal::begin() {
-    RGB.brightness(RGB_BRIGHTNESS);
-}
+void RGBSignal::begin() { RGB.brightness(RGB_BRIGHTNESS); }
 
-void RGBSignal::blinkOk() {
+void RGBSignal::blinkOk()
+{
     RGB.control(true);
     for (int i = 0; i < 2; i++)
     {
@@ -17,7 +16,8 @@ void RGBSignal::blinkOk() {
     RGB.control(false);
 }
 
-void RGBSignal::blinkError(char count) {
+void RGBSignal::blinkError(char count)
+{
     RGB.control(true);
     for (int i = 0; i < count; i++)
     {

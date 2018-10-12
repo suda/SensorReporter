@@ -8,7 +8,7 @@
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
             "executable": "${workspaceRoot}/target/particle-sensor-board.elf",
-            "request": "attach",
+            "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
             "interface": "jtag",
