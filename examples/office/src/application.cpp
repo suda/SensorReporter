@@ -1,6 +1,7 @@
+#include "application.h"
+
 // When debugging Wifi seems to have issues connecting, so disable it
 #if defined(USE_SWD_JTAG)
-#include "application.h"
 SYSTEM_MODE(MANUAL);
 #endif
 
