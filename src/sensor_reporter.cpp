@@ -3,6 +3,10 @@
 #include "collector.h"
 Collector collector;
 
+/*************************************
+ * SENSOR DECLARATION                *
+ *************************************/
+
 #if defined(SENSOR_ANALOG_PIN_1)
 #include "sensors/sensor_analog_pin.h"
 SensorAnalogPin sensorAnalogPin1;
@@ -13,6 +17,10 @@ SensorAnalogPin sensorAnalogPin1;
 SensorHtu21D sensorHtu21D;
 #endif
 
+/*************************************
+ * REPORTER DECLARATION              *
+ *************************************/
+
 #if defined(REPORTER_SERIAL_BAUDRATE)
 #include "reporters/reporter_serial.h"
 ReporterSerial reporterSerial;
@@ -22,6 +30,10 @@ ReporterSerial reporterSerial;
 #include "reporters/reporter_particle.h"
 ReporterParticle reporterParticle;
 #endif
+
+/*************************************
+ * BEGIN FUNCTION                    *
+ *************************************/
 
 void SensorReporter::begin()
 {
@@ -46,6 +58,10 @@ void SensorReporter::begin()
     collector.addReporter(&reporterParticle);
 #endif
 }
+
+/*************************************
+ * LOOP FUNCTION                     *
+ *************************************/
 
 void SensorReporter::loop()
 {
