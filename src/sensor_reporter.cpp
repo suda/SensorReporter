@@ -1,18 +1,4 @@
-// When debugging Wifi seems to have issues connecting, so disable it
-#if defined(USE_SWD_JTAG)
-#include "application.h"
-SYSTEM_MODE(MANUAL);
-#endif
-
-#define SAMPLE_PREFIX "office_"
-#define REPORTING_INTERVAL 10000
-
-#define SENSOR_ANALOG_PIN_1 A0
-#define SENSOR_ANALOG_PIN_1_NAME "soil"
-#define SENSOR_HTU21D
-
-#define REPORTER_SERIAL_BAUDRATE 9600
-#define REPORTER_PARTICLE
+#include "sensor_reporter.h"
 
 #include "collector.h"
 Collector collector;
@@ -37,7 +23,7 @@ ReporterSerial reporterSerial;
 ReporterParticle reporterParticle;
 #endif
 
-void setup()
+void SensorReporter::begin()
 {
     collector.begin(SAMPLE_PREFIX);
 
@@ -61,7 +47,7 @@ void setup()
 #endif
 }
 
-void loop()
+void SensorReporter::loop()
 {
     collector.collect();
     collector.report();
