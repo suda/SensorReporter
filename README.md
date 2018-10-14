@@ -48,6 +48,7 @@
 
 * Analog input using built in ADC
 * HTU21D temperature & humidity sensor via [SparkFun_HTU21D_Breakout_Arduino_Library](https://github.com/sparkfun/SparkFun_HTU21D_Breakout_Arduino_Library)
+* Soil moisture sensor using ADC
 
 ### Reporters
 
@@ -75,6 +76,11 @@ This header file is used to configure the `SensorReporter`. To disable a sensor 
 
 // HTU21D temperature and humidity sensor
 #define SENSOR_HTU21D
+
+// Soil moisture sensor using ADC
+#define SENSOR_MOISTURE_ANALOG_PIN A7
+// Pin connected to sensor's VCC
+#define SENSOR_MOISTURE_ENABLE_PIN D2
 
 // ***** REPORTERS *****
 

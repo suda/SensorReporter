@@ -12,6 +12,11 @@ Collector collector;
 SensorAnalogPin sensorAnalogPin1;
 #endif
 
+#if defined(SENSOR_MOISTURE_ANALOG_PIN)
+#include "sensors/sensor_moisture.h"
+SensorMoisture sensorMoisture;
+#endif
+
 #if defined(SENSOR_HTU21D)
 #include "sensors/sensor_htu21d.h"
 SensorHtu21D sensorHtu21D;
@@ -42,6 +47,11 @@ void SensorReporter::begin()
 #if defined(SENSOR_ANALOG_PIN_1)
     sensorAnalogPin1.begin(SENSOR_ANALOG_PIN_1, SENSOR_ANALOG_PIN_1_NAME);
     collector.addSensor(&sensorAnalogPin1);
+#endif
+
+#if defined(SENSOR_MOISTURE_ANALOG_PIN)
+    sensorMoisture.begin(SENSOR_MOISTURE_ANALOG_PIN, SENSOR_MOISTURE_ENABLE_PIN);
+    collector.addSensor(&sensorMoisture);
 #endif
 
 #if defined(SENSOR_HTU21D)
