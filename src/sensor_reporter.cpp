@@ -22,6 +22,11 @@ SensorMoisture sensorMoisture;
 SensorHtu21D sensorHtu21D;
 #endif
 
+#if defined(SENSOR_PMS3003)
+#include "sensors/sensor_pms3003.h"
+SensorPMS3003 sensorPMS3003;
+#endif
+
 /*************************************
  * REPORTER DECLARATION              *
  *************************************/
@@ -57,6 +62,11 @@ void SensorReporter::begin()
 #if defined(SENSOR_HTU21D)
     sensorHtu21D.begin();
     collector.addSensor(&sensorHtu21D);
+#endif
+
+#if defined(SENSOR_PMS3003)
+    sensorPMS3003.begin();
+    collector.addSensor(&sensorPMS3003);
 #endif
 
 #if defined(REPORTER_SERIAL_BAUDRATE)
