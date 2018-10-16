@@ -1,12 +1,12 @@
 #include "sensor_htu21d.h"
 
-void SensorHtu21D::begin()
+void SensorHTU21D::begin()
 {
     htu.begin();
     this->_samplesLeft = 2;
 }
 
-Sample SensorHtu21D::getSample()
+Sample SensorHTU21D::getSample()
 {
     struct Sample sample;
     if (this->_samplesLeft == 2)
@@ -24,7 +24,7 @@ Sample SensorHtu21D::getSample()
     return sample;
 }
 
-uint8_t SensorHtu21D::samplesLeft()
+uint8_t SensorHTU21D::samplesLeft()
 {
     uint8_t samplesLeft = this->_samplesLeft;
     if (this->_samplesLeft == 0)

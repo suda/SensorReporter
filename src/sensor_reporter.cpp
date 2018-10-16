@@ -19,7 +19,7 @@ SensorMoisture sensorMoisture;
 
 #if defined(SENSOR_HTU21D)
 #include "sensors/sensor_htu21d.h"
-SensorHtu21D sensorHtu21D;
+SensorHTU21D sensorHTU21D;
 #endif
 
 #if defined(SENSOR_PMS3003)
@@ -60,8 +60,8 @@ void SensorReporter::begin()
 #endif
 
 #if defined(SENSOR_HTU21D)
-    sensorHtu21D.begin();
-    collector.addSensor(&sensorHtu21D);
+    sensorHTU21D.begin();
+    collector.addSensor(&sensorHTU21D);
 #endif
 
 #if defined(SENSOR_PMS3003)
