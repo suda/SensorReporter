@@ -1,7 +1,7 @@
 
 <h1 align="center">
 	<br>
-	<img height="300" alt="dvsync" src="media/SensorReporter.png">
+	<img height="300" alt="SensorReporter" src="media/SensorReporter.png">
 	<br>
 	<br>
 	<br>
@@ -49,6 +49,7 @@
 * Analog input using built in ADC
 * HTU21D temperature & humidity sensor via [SparkFun_HTU21D_Breakout_Arduino_Library](https://github.com/sparkfun/SparkFun_HTU21D_Breakout_Arduino_Library)
 * Soil moisture sensor using ADC
+* PMS3003 air quality sensor
 
 ### Reporters
 
@@ -76,6 +77,9 @@ This header file is used to configure the `SensorReporter`. To disable a sensor 
 
 // HTU21D temperature and humidity sensor
 #define SENSOR_HTU21D
+
+// PMS3003 air quality sensor
+#define SENSOR_PMS3003
 
 // Soil moisture sensor using ADC
 #define SENSOR_MOISTURE_ANALOG_PIN A7
